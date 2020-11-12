@@ -20,9 +20,9 @@ exports.login = passport.authenticate('local', {
 
 exports.logout = (req, res) => {
   res.end('logout');
-  //   req.logout();
+  req.logout();
   // req.flash('success_msg', '你已經成功登出。');
-  //   res.redirect('/login');
+  res.redirect('/api/v1/users/login');
 };
 
 // exports.isLogedIn = (req, res, next) => {
