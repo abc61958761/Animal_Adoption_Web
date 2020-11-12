@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
     minlength: [8, '請輸入8-12字元'],
     select: false
   },
-  passwordConfirm: {
+  confirmPassword: {
     type: String,
     required: true,
     validate: {
