@@ -1,3 +1,4 @@
+const passport = require('passport');
 const User = require('../models/userModel');
 const catchAsync = require('../config/catchAsync');
 
@@ -12,14 +13,10 @@ exports.signup = catchAsync(async (req, res, next) => {
   res.status(201).json({ status: 'success', data: newUser });
 });
 
-exports.login = (req, res) => {
-  res.end('login');
-};
-
-// passport.authenticate('local', {
-//   successRedirect: '/restaurants',
-//   failureRedirect: '/login'
-// });
+exports.login = passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/api/v1/users/login'
+});
 
 exports.logout = (req, res) => {
   res.end('logout');

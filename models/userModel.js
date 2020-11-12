@@ -28,8 +28,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     maxlength: [12, '請輸入8-12字元'],
-    minlength: [8, '請輸入8-12字元'],
-    select: false
+    minlength: [8, '請輸入8-12字元']
   },
   confirmPassword: {
     type: String,
