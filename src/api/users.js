@@ -8,5 +8,8 @@ export default {
   },
   async login(params) {
     return await appserve.post(`${API_URL}/login`, params);
+  },
+  async users() {
+    return await appserve.get(`${API_URL}`);
   }
 };
