@@ -1,29 +1,34 @@
 <template>
   <div>
-    <v-btn @click="verify">登入</v-btn>
-    <h1>Users</h1>
-    <div v-for="user of users" :key="user.id">
-      {{user}}
-    </div>
+    <Header></Header>
+    <v-row class="px-6 pt-12">
+      <v-col class="d-flex" cols="12">
+        <v-select label="選擇明星類型" dense outlined class="mr-2"></v-select>
+        <v-select label="選擇明星公司" dense outlined class="ml-2"></v-select>
+        <v-btn color="primary" class="white--text ml-4" depressed>搜尋</v-btn>
+      </v-col>
+      <v-col class="d-flex justify-space-between align-center py-0">
+        <p class="primary--text ma-0">其他明星</p>
+        <v-icon color="primary" @click="ischange = true"
+          >mdi-view-dashboard</v-icon
+        >
+      </v-col>
+      <v-col class="d-flex flex-wrap" cols="12">
+        <v-col :cols="ischange ? '12' : '3'">1</v-col>
+      </v-col>
+    </v-row>
   </div>
 </template>
 <script>
-import { users } from "@/api";
-
+import Header from "@/layout/Header.vue";
 export default {
-  data: () => {
+  components: {
+    Header
+  },
+  data() {
     return {
-      users: null
-    }
-  },
-  methods: {
-    verify() {
-      this.$router.push("/signin");
-    }
-  },
-  async mounted() {
-    const response = await users.users();
-    this.users = response.data.data;
+      ischange: false
+    };
   }
 };
 </script>
