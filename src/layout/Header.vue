@@ -7,11 +7,7 @@
     >
     <v-carousel v-model="model" cycle>
       <v-carousel-item v-for="(i, index) in test" :key="index">
-        <v-sheet height="100%" tile>
-          <v-row class="fill-height" align="center" justify="center">
-            <div class="display-3">Slide {{ model }}</div>
-          </v-row>
-        </v-sheet>
+        <v-img :src="i" height="100%"></v-img>
       </v-carousel-item>
     </v-carousel>
   </div>
@@ -21,7 +17,13 @@ export default {
   data() {
     return {
       model: "",
-      test: ["1", "2", "3", "3", "3"]
+      test: [
+        require("@/assets/img/dog/dog-1.jpg"),
+        require("@/assets/img/dog/dog-2.jpg"),
+        require("@/assets/img/dog/dog-3.jpg"),
+        require("@/assets/img/cat/cat-5.jpg"),
+        require("@/assets/img/cat/cat-2.jpg")
+      ]
     };
   }
 };

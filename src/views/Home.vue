@@ -9,12 +9,26 @@
       </v-col>
       <v-col class="d-flex justify-space-between align-center py-0">
         <p class="primary--text ma-0">其他明星</p>
-        <v-icon color="primary" @click="ischange = true"
-          >mdi-view-dashboard</v-icon
-        >
+        <span>
+          <v-icon color="primary" @click="ischange = true"
+            >mdi-view-dashboard</v-icon
+          >
+          <!-- <v-icon>mdi-view-dashboard</v-icon> -->
+        </span>
       </v-col>
       <v-col class="d-flex flex-wrap" cols="12">
-        <v-col :cols="ischange ? '12' : '3'">1</v-col>
+        <v-col :cols="ischange ? '12' : '3'"
+          ><v-card><v-img src="@/assets/img/dog/dog-4.jpg"/></v-card
+        ></v-col>
+        <v-col :cols="ischange ? '12' : '3'"
+          ><v-card><v-img src="@/assets/img/dog/dog-4.jpg"/></v-card
+        ></v-col>
+        <v-col :cols="ischange ? '12' : '3'"
+          ><v-card><v-img src="@/assets/img/dog/dog-4.jpg"/></v-card
+        ></v-col>
+        <v-col :cols="ischange ? '12' : '3'"
+          ><v-card><v-img src="@/assets/img/dog/dog-4.jpg"/></v-card
+        ></v-col>
       </v-col>
     </v-row>
   </div>
