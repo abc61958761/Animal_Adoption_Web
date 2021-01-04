@@ -17,17 +17,17 @@
         </span>
       </v-col>
       <v-col class="d-flex flex-wrap" cols="12">
-        <v-col :cols="ischange ? '12' : '3'"
-          ><v-card><v-img src="@/assets/img/dog/dog-4.jpg"/></v-card
-        ></v-col>
-        <v-col :cols="ischange ? '12' : '3'"
-          ><v-card><v-img src="@/assets/img/dog/dog-4.jpg"/></v-card
-        ></v-col>
-        <v-col :cols="ischange ? '12' : '3'"
-          ><v-card><v-img src="@/assets/img/dog/dog-4.jpg"/></v-card
-        ></v-col>
-        <v-col :cols="ischange ? '12' : '3'"
-          ><v-card><v-img src="@/assets/img/dog/dog-4.jpg"/></v-card
+        <v-col
+          :cols="ischange ? '12' : '3'"
+          v-for="(img, index) in imgs"
+          :key="index"
+          @click="details(img.url, (img.control = true))"
+          ><v-card>
+            <v-img :src="img.url" :height="ischange ? '500px' : '200px'" />
+          </v-card>
+        </v-col>
+        <v-col v-show="isControl" cols="12"
+          ><v-card> <v-img :src="detailImgUrl" height="500px" /> </v-card
         ></v-col>
       </v-col>
     </v-row>
@@ -41,8 +41,25 @@ export default {
   },
   data() {
     return {
-      ischange: false
+      ischange: false,
+      imgs: [
+        { url: require("@/assets/img/dog/dog-1.jpg"), control: false },
+        { url: require("@/assets/img/dog/dog-2.jpg"), control: false },
+        { url: require("@/assets/img/dog/dog-3.jpg"), control: false },
+        { url: require("@/assets/img/dog/dog-4.jpg"), control: false },
+        { url: require("@/assets/img/dog/dog-5.jpg"), control: false },
+        { url: require("@/assets/img/dog/dog-6.jpg"), control: false },
+        { url: require("@/assets/img/dog/dog-7.jpeg"), control: false }
+      ],
+      isControl: false,
+      detailImgUrl: null
     };
+  },
+  methods: {
+    details(imgUrl, control) {
+      this.isControl = control;
+      this.detailImgUrl = imgUrl;
+    }
   }
 };
 </script>
