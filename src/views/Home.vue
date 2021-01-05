@@ -16,20 +16,23 @@
           <!-- <v-icon>mdi-view-dashboard</v-icon> -->
         </span>
       </v-col>
-      <v-col class="d-flex flex-wrap" cols="12">
+    </v-row>
+
+    <v-row class="px-3">
+      <v-col  class="d-flex flex-wrap">
         <v-col
-          :cols="ischange ? '12' : '3'"
+          :cols="ischange? '12' : '3'"
           v-for="(img, index) in imgs"
           :key="index"
-          @click="details(img.url, (img.control = true))"
-          ><v-card>
-            <v-img :src="img.url" :height="ischange ? '500px' : '200px'" />
-          </v-card>
+          >
+           <v-img :src="img.url" :height="ischange ? '600px' : '200px'"  @click="details(img.url, (img.control = true))"
+ />
         </v-col>
-        <v-col v-show="isControl" cols="12"
-          ><v-card> <v-img :src="detailImgUrl" height="500px" /> </v-card
-        ></v-col>
+         <v-col cols="12">
+          <v-img :src="detailImgUrl" width="100%" height="550px" v-show="!ischange"/>
+        </v-col>
       </v-col>
+       
     </v-row>
   </div>
 </template>
@@ -63,4 +66,5 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
