@@ -12,7 +12,13 @@
           v-model="type"
         ></v-select>
         <v-select label="選擇明星公司" dense outlined class="ml-2"></v-select>
-        <v-btn color="primary" class="white--text ml-4" depressed>搜尋</v-btn>
+        <v-btn
+          color="primary"
+          class="white--text ml-4"
+          depressed
+          @click="change"
+          >搜尋</v-btn
+        >
       </v-col>
       <v-col class="d-flex justify-space-between align-center py-0">
         <p class="primary--text ma-0">其他明星</p>
@@ -31,7 +37,7 @@
       <v-col class="d-flex flex-wrap">
         <v-col
           :cols="ischange ? '12' : '3'"
-          v-for="(img, index) in type == 'dog' ? imgs : catImgs"
+          v-for="(img, index) in isTypes == 'dog' ? imgs : catImgs"
           :key="index"
         >
           <v-img
@@ -82,13 +88,19 @@ export default {
       isControl: false,
       detailImgUrl: null,
       species: ["dog", "cat"],
-      type: "dog"
+      type: "",
+      isTypes: "dog"
     };
   },
   methods: {
     details(imgUrl, control) {
       this.isControl = control;
       this.detailImgUrl = imgUrl;
+    },
+    change() {
+      if (this.type == "cat") {
+        this.isTypes = "cat";
+      } else return (this.isTypes = "dog");
     }
   }
 };
