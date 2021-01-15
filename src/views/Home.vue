@@ -32,7 +32,6 @@
         </span>
       </v-col>
     </v-row>
-
     <v-row class="px-3">
       <v-col class="d-flex flex-wrap">
         <v-col
@@ -44,6 +43,7 @@
             :src="img.url"
             :height="ischange ? '600px' : '200px'"
             @click="details(img.url, (img.control = true))"
+            class="animate__animated animate__zoomInUp animate__slow "
           />
         </v-col>
         <v-col cols="12" v-if="detailImgUrl">
