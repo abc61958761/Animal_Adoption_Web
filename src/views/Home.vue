@@ -43,7 +43,7 @@
           <v-img
             :src="tmpImgs[count+index].url"
             :height="ischange ? '600px' : '200px'"
-            @click="details(img.url, (img.control = true), $event)"
+            @click="details(tmpImgs[count+index].url, (tmpImgs[count+index].control = true), $event)"
             class="animate__animated animate__zoomInUp animate__slow "
           />
         </v-col>
