@@ -32,26 +32,27 @@
         </span>
       </v-col>
     </v-row>
-    <v-row class="px-3">
+
+    <v-row class="px-3" v-for="count in rowCount" :key="count">
       <v-col class="d-flex flex-wrap">
         <v-col
           :cols="ischange ? '12' : '3'"
-          v-for="(img, index) in isTypes == 'dog' ? imgs : catImgs"
+          v-for="index in 4"
           :key="index"
         >
           <v-img
-            :src="img.url"
+            :src="tmpImgs[count+index].url"
             :height="ischange ? '600px' : '200px'"
-            @click="details(img.url, (img.control = true))"
+            @click="details(img.url, (img.control = true), $event)"
             class="animate__animated animate__zoomInUp animate__slow "
           />
         </v-col>
-        <v-col cols="12" v-if="detailImgUrl">
+        <v-col cols="12" v-if="!ischange">
           <v-img
             :src="detailImgUrl"
             width="100%"
             height="550px"
-            v-show="!ischange"
+            class="detail-image"
           />
         </v-col>
       </v-col>
@@ -69,7 +70,7 @@ export default {
   data() {
     return {
       ischange: false,
-      imgs: [
+      dogImgs: [
         { url: require("@/assets/img/dog/dog-1.jpg"), control: false },
         { url: require("@/assets/img/dog/dog-2.jpg"), control: false },
         { url: require("@/assets/img/dog/dog-3.jpg"), control: false },
@@ -85,24 +86,51 @@ export default {
         { url: require("@/assets/img/cat/cat-4.jpg"), control: false },
         { url: require("@/assets/img/cat/cat-5.jpg"), control: false }
       ],
+      tmpImgs: [],
       isControl: false,
       detailImgUrl: null,
       species: ["dog", "cat"],
-      type: "",
-      isTypes: "dog"
+      type: "dog",
+      isTypes: "dog",
+      rowCount: 0
     };
   },
   methods: {
-    details(imgUrl, control) {
+    details(imgUrl, control, event) {
+      this.hideDetail();
+      event.target.closest(".row").querySelector(".detail-image").style.display='block';
+
       this.isControl = control;
       this.detailImgUrl = imgUrl;
     },
     change() {
-      if (this.type == "cat") {
-        this.isTypes = "cat";
-      } else return (this.isTypes = "dog");
+      this.isTypes = this.type;
+      switch (this.isTypes) {
+        case 'dog':
+          this.tmpImgs = this.dogImgs;
+          break;
+        case 'cat':
+          this.tmpImgs = this.catImgs;
+          break;
+        default:
+          break;
+      }
+      this.rowCount = Math.round(this.tmpImgs.length/4);
+    },
+    hideDetail() {
+      const allDetailImages = document.getElementsByClassName("detail-image");
+      for (const item of allDetailImages) {
+        item.style.display = 'none';
+      }
     }
+  },
+  mounted() {
+    this.change();
   }
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.detail-image {
+  display: none;
+}
+</style>
