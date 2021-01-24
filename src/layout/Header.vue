@@ -5,7 +5,7 @@
         >動物明星經紀公司</v-toolbar-title
       ></v-toolbar
     >
-    <v-carousel v-model="model" cycle height="650px">
+    <!-- <v-carousel v-model="model" cycle height="650px">
       <v-carousel-item v-for="(i, index) in test" :key="index">
         <v-img :src="i" height="100%">
           <v-col class="carousel--text font-weight-bold" cols="4">
@@ -16,29 +16,29 @@
           </v-col>
         </v-img>
       </v-carousel-item>
-    </v-carousel>
+    </v-carousel> -->
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      model: "",
-      test: [
-        require("@/assets/img/dog/dog-1.jpg"),
-        require("@/assets/img/dog/dog-2.jpg"),
-        require("@/assets/img/dog/dog-3.jpg"),
-        require("@/assets/img/cat/cat-5.jpg"),
-        require("@/assets/img/cat/cat-2.jpg")
-      ]
+      // model: "",
+      // test: [
+      //   require("@/assets/img/dog/dog-1.jpg"),
+      //   require("@/assets/img/dog/dog-2.jpg"),
+      //   require("@/assets/img/dog/dog-3.jpg"),
+      //   require("@/assets/img/cat/cat-5.jpg"),
+      //   require("@/assets/img/cat/cat-2.jpg")
+      // ]
     };
   }
 };
 </script>
 <style lang="scss" scoped>
-.carousel--text {
-  position: absolute;
-  bottom: 30%;
-  left: 0px;
-}
+// .carousel--text {
+//   position: absolute;
+//   bottom: 30%;
+//   left: 0px;
+// }
 </style>
