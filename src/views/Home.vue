@@ -65,7 +65,7 @@
               )
             "
             @click="toIntroduction(tmpImgs[count + index].url)"
-            class="animate__animated animate__zoomInUp animate__flipOutX"
+            class="animate__animated animate__zoomInUp "
           />
         </v-col>
         <v-col cols="12" v-if="!ischange">
