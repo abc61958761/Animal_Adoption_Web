@@ -56,7 +56,7 @@
         <v-col :cols="ischange ? '12' : '3'" v-for="index in 4" :key="index">
           <v-img
             :src="tmpImgs[count + index].url"
-            :height="ischange ? '600px' : '200px'"
+            :height="ischange ? '600px' : '300px'"
             @mouseover="
               details(
                 tmpImgs[count + index].url,
