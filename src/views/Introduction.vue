@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header></Header>
-    <v-card style="position:relative;">
+    <v-card class="display-relative">
       <v-img
         :src="this.$route.query.url"
         :class="
@@ -103,5 +103,8 @@ export default {
 }
 .v-list {
   background: none;
+}
+.display-relative {
+  position: relative;
 }
 </style>

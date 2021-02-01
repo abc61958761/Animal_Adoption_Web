@@ -29,6 +29,7 @@
           outlined
           class="ml-2"
           :items="gender"
+          v-model="genderType"
         ></v-select>
         <v-btn
           color="primary"
@@ -53,7 +54,12 @@
 
     <v-row class="px-3" v-for="count in rowCount" :key="count">
       <v-col class="d-flex flex-wrap">
-        <v-col :cols="ischange ? '12' : '3'" v-for="index in 4" :key="index">
+        <v-col
+          :cols="ischange ? '12' : '3'"
+          v-for="index in 4"
+          :key="index"
+          class="display-relative"
+        >
           <v-img
             :src="tmpImgs[count + index].url"
             :height="ischange ? '600px' : '300px'"
@@ -67,14 +73,11 @@
             @click="toIntroduction(tmpImgs[count + index].url)"
             class="animate__animated animate__zoomInUp "
           />
+          <DetailInfo :show="ischange"></DetailInfo>
         </v-col>
-        <v-col cols="12" v-if="!ischange">
-          <v-img
-            :src="detailImgUrl"
-            width="100%"
-            height="550px"
-            class="detail-image"
-          />
+        <v-col cols="12" v-if="!ischange" class="detail-image">
+          <v-img :src="detailImgUrl" width="100%" height="550px" />
+          <DetailInfo show="true"></DetailInfo>
         </v-col>
       </v-col>
     </v-row>
@@ -84,9 +87,11 @@
 </template>
 <script>
 import Header from "@/layout/Header.vue";
+import DetailInfo from "@/components/DetailInfo.vue";
 export default {
   components: {
-    Header
+    Header,
+    DetailInfo
   },
   data() {
     return {
@@ -124,7 +129,8 @@ export default {
         require("@/assets/img/dog/dog-3.jpg"),
         require("@/assets/img/cat/cat-5.jpg"),
         require("@/assets/img/cat/cat-2.jpg")
-      ]
+      ],
+      genderType: "公"
     };
   },
   methods: {
@@ -166,10 +172,14 @@ export default {
 <style lang="scss" scoped>
 .detail-image {
   display: none;
+  position: relative;
 }
 .carousel--text {
   position: absolute;
   bottom: 30%;
   left: 0px;
+}
+.display-relative {
+  position: relative;
 }
 </style>
