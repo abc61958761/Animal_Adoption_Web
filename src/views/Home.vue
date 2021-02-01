@@ -77,7 +77,7 @@
         </v-col>
         <v-col cols="12" v-if="!ischange" class="detail-image">
           <v-img :src="detailImgUrl" width="100%" height="550px" />
-          <DetailInfo show="true"></DetailInfo>
+          <DetailInfo :show="true"></DetailInfo>
         </v-col>
       </v-col>
     </v-row>

@@ -3,10 +3,10 @@
     <Header></Header>
     <v-card class="display-relative">
       <v-img
-        :src="this.$route.query.url"
+        :src="change ? this.imgs : this.$route.query.url"
         :class="
           handler
-            ? 'animate__animated animate__fadeOutDown animate__slow'
+            ? 'animate__animated animate__fadeOutDown animate__slower'
             : 'animate__animated animate__slideInUp animate__faster'
         "
       />
@@ -14,10 +14,13 @@
     </v-card>
     <v-card
       v-intersect="{
-        handler: handlerIntersect
+        handler: handlerIntersect,
+        options: {
+          threshold: [0, 0.3, 0.5, 1]
+        }
       }"
     >
-      <v-img :src="this.$route.query.url" />
+      <v-img :src="change ? this.imgs : this.$route.query.url" />
       <v-col class="white--text img--text" cols="3">
         <h1 class="text-right text-h2 mb-5">旺福</h1>
         <p>
@@ -36,19 +39,34 @@
     </v-card>
     <v-card>
       <v-img
-        :src="this.$route.query.url"
+        :src="change ? this.imgs : this.$route.query.url"
         :class="
-          !handler
+          !isIntersecting
             ? 'animate__animated animate__slideInUp animate__faster'
-            : 'animate__animated animate__fadeOutDown animate__slow'
+            : 'animate__animated animate__fadeOutDown animate__slower'
         "
       />
+      <v-col class="white--text img--text" cols="3">
+        <h1 class="text-right text-h2 mb-5">旺福</h1>
+        <p>
+          約一歲多，很親人也很愛玩，熟悉之後可以給摸給抱。
+          頭小但身體很大很長，最近疏於管理長出一點肥宅肚肚。
+          需要有個精明能幹的經紀人，來幫他安排他的演藝生活。
+        </p>
+        <v-list dense>
+          <v-list-item v-for="(item, i) in items" :key="i" class="pa-0">
+            <v-list-item-title class="white--text"
+              >{{ item.title }}：{{ item.value }}</v-list-item-title
+            >
+          </v-list-item>
+        </v-list>
+      </v-col>
     </v-card>
     <v-col>
       <p class="primary--text ma-0">推薦明星</p>
       <v-col class="d-flex flex-wrap">
         <v-col cols="3" v-for="(img, index) in dogImgs" :key="index">
-          <v-img :src="img.url" height="300px" />
+          <v-img :src="img.url" height="300px" @click="handlerClick(img.url)" />
         </v-col>
       </v-col>
     </v-col>
@@ -59,6 +77,7 @@ import Header from "@/layout/Header.vue";
 export default {
   data() {
     return {
+      change: false,
       isIntersecting: false,
       handler: false,
       items: [
@@ -77,20 +96,22 @@ export default {
         { url: require("@/assets/img/dog/dog-5.jpg") },
         { url: require("@/assets/img/dog/dog-6.jpg") },
         { url: require("@/assets/img/dog/dog-7.jpeg") }
-      ]
+      ],
+      imgs: ""
     };
   },
   components: {
     Header
   },
   methods: {
-    // onIntersect(entries) {
-    //   console.log(entries[0]);
-    //   this.isIntersecting = entries[0].intersectionRatio < 1;
-    // },
     handlerIntersect(entries) {
-      console.log(entries[0], "as");
-      this.handler = entries[0].isIntersecting;
+      console.log(entries[0]);
+      this.handler = entries[0].intersectionRatio > 0.5;
+      this.isIntersecting = entries[0].intersectionRatio > 0.5;
+    },
+    handlerClick(img) {
+      this.imgs = img;
+      this.change = true;
     }
   }
 };
