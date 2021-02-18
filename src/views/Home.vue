@@ -61,8 +61,9 @@
           class="display-relative"
         >
           <v-img
-            :src="tmpImgs[count + index].url"
-            :height="ischange ? '600px' : '300px'"
+            :lazy-src="tmpImgs[index + count].url"
+            :src="tmpImgs[index + count].url"
+            :height="ischange ? '800px' : '300px'"
             @mouseover="
               details(
                 tmpImgs[count + index].url,
@@ -70,13 +71,26 @@
                 $event
               )
             "
-            @click="toIntroduction(tmpImgs[count + index].url)"
-            class="animate__animated animate__zoomInUp "
-          />
+            @click="toIntroduction(tmpImgs[count + index].more)"
+          >
+            <template v-slot:placeholder>
+              <v-row
+                class="fill-height ma-0"
+                align="center"
+                justify="center"
+                style="background:grey;opacity: 0.5;"
+              >
+                <v-progress-circular
+                  indeterminate
+                  color="grey lighten-5"
+                ></v-progress-circular>
+              </v-row>
+            </template>
+          </v-img>
           <DetailInfo :show="ischange"></DetailInfo>
         </v-col>
         <v-col cols="12" v-if="!ischange" class="detail-image">
-          <v-img :src="detailImgUrl" width="100%" height="550px" />
+          <v-img :src="detailImgUrl"></v-img>
           <DetailInfo :show="true"></DetailInfo>
         </v-col>
       </v-col>
@@ -99,11 +113,51 @@ export default {
       dogImgs: [
         { url: require("@/assets/img/dog/dog-1.jpg"), control: false },
         { url: require("@/assets/img/dog/dog-2.jpg"), control: false },
-        { url: require("@/assets/img/dog/dog-3.jpg"), control: false },
-        { url: require("@/assets/img/dog/dog-4.jpg"), control: false },
-        { url: require("@/assets/img/dog/dog-5.jpg"), control: false },
-        { url: require("@/assets/img/dog/dog-6.jpg"), control: false },
-        { url: require("@/assets/img/dog/dog-7.jpeg"), control: false }
+        {
+          url: require("@/assets/img/dog/a1.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/dog/a1.jpg"),
+            require("@/assets/img/dog/a2.jpg"),
+            require("@/assets/img/dog/a3.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/dog/b1.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/dog/b1.jpg"),
+            require("@/assets/img/dog/b1.jpg"),
+            require("@/assets/img/dog/b1.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/dog/c1.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/dog/c1.jpg"),
+            require("@/assets/img/dog/c1.jpg"),
+            require("@/assets/img/dog/c1.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/dog/d1.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/dog/d1.jpg"),
+            require("@/assets/img/dog/d1.jpg"),
+            require("@/assets/img/dog/d1.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/dog/f1.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/dog/f1.jpg"),
+            require("@/assets/img/dog/f1.jpg"),
+            require("@/assets/img/dog/f1.jpg")
+          ]
+        }
       ],
       catImgs: [
         { url: require("@/assets/img/cat/cat-1.png"), control: false },
@@ -127,7 +181,7 @@ export default {
         require("@/assets/img/dog/dog-1.jpg"),
         require("@/assets/img/dog/dog-2.jpg"),
         require("@/assets/img/dog/dog-3.jpg"),
-        require("@/assets/img/cat/cat-5.jpg"),
+        require("@/assets/img/cat/cat-4.jpg"),
         require("@/assets/img/cat/cat-2.jpg")
       ],
       genderType: "公"
@@ -173,6 +227,8 @@ export default {
 .detail-image {
   display: none;
   position: relative;
+  overflow: hidden;
+  height: 800px;
 }
 .carousel--text {
   position: absolute;

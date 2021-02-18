@@ -3,24 +3,25 @@
     <Header></Header>
     <v-card class="display-relative">
       <v-img
-        :src="change ? this.imgs : this.$route.query.url"
+        :src="change ? this.imgs : this.$route.query.url[0]"
         :class="
           handler
             ? 'animate__animated animate__fadeOutDown animate__slower'
             : 'animate__animated animate__slideInUp animate__faster'
         "
-      />
+      >
+      </v-img>
       <h1 class="white--text img--text  text-h1">旺福</h1>
     </v-card>
     <v-card
       v-intersect="{
         handler: handlerIntersect,
         options: {
-          threshold: [0, 0.3, 0.5, 1]
+          threshold: [0, 0.4, 0.5, 1]
         }
       }"
     >
-      <v-img :src="change ? this.imgs : this.$route.query.url" />
+      <v-img :src="change ? this.imgs : this.$route.query.url[1]" />
       <v-col class="white--text img--text" cols="3">
         <h1 class="text-right text-h2 mb-5">旺福</h1>
         <p>
@@ -39,12 +40,13 @@
     </v-card>
     <v-card>
       <v-img
-        :src="change ? this.imgs : this.$route.query.url"
+        :src="change ? this.imgs : this.$route.query.url[2]"
         :class="
           !isIntersecting
             ? 'animate__animated animate__slideInUp animate__faster'
             : 'animate__animated animate__fadeOutDown animate__slower'
         "
+        aspect-ratio="1.2"
       />
       <v-col class="white--text img--text" cols="3">
         <h1 class="text-right text-h2 mb-5">旺福</h1>
@@ -89,7 +91,7 @@ export default {
         { title: "所在地", value: "新北市中和區" }
       ],
       dogImgs: [
-        { url: require("@/assets/img/dog/dog-1.jpg") },
+        { url: require("@/assets/img/dog/a1.jpg") },
         { url: require("@/assets/img/dog/dog-2.jpg") },
         { url: require("@/assets/img/dog/dog-3.jpg") },
         { url: require("@/assets/img/dog/dog-4.jpg") },
@@ -105,8 +107,7 @@ export default {
   },
   methods: {
     handlerIntersect(entries) {
-      console.log(entries[0]);
-      this.handler = entries[0].intersectionRatio > 0.5;
+      this.handler = entries[0].intersectionRatio > 0.4;
       this.isIntersecting = entries[0].intersectionRatio > 0.5;
     },
     handlerClick(img) {
