@@ -3,7 +3,7 @@
     <Header></Header>
     <v-card class="display-relative">
       <v-img
-        :src="change ? this.imgs : this.$route.query.url[0]"
+        :src="change ? this.imgs : this.$route.params.url[0]"
         :class="
           handler
             ? 'animate__animated animate__fadeOutDown animate__slower'
@@ -21,7 +21,7 @@
         }
       }"
     >
-      <v-img :src="change ? this.imgs : this.$route.query.url[1]" />
+      <v-img :src="change ? this.imgs : this.$route.params.url[1]" />
       <v-col class="white--text img--text" cols="3">
         <h1 class="text-right text-h2 mb-5">旺福</h1>
         <p>
@@ -40,7 +40,7 @@
     </v-card>
     <v-card>
       <v-img
-        :src="change ? this.imgs : this.$route.query.url[2]"
+        :src="change ? this.imgs : this.$route.params.url[2]"
         :class="
           !isIntersecting
             ? 'animate__animated animate__slideInUp animate__faster'

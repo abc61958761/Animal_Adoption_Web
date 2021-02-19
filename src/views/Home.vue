@@ -71,7 +71,14 @@
                 $event
               )
             "
+            @load="isControl = true"
             @click="toIntroduction(tmpImgs[count + index].more)"
+            @mouseout="handlerDetail($event)"
+            :class="
+              isControl
+                ? 'animate__animated animate__wobble animate__delay-2s'
+                : ''
+            "
           >
             <template v-slot:placeholder>
               <v-row
@@ -89,14 +96,24 @@
           </v-img>
           <DetailInfo :show="ischange"></DetailInfo>
         </v-col>
-        <v-col cols="12" v-if="!ischange" class="detail-image">
+        <v-col cols="12" v-show="!ischange" class="detail-image">
           <v-img :src="detailImgUrl"></v-img>
-          <DetailInfo :show="true"></DetailInfo>
+          <DetailInfo :show="!ischange"></DetailInfo>
         </v-col>
       </v-col>
     </v-row>
     <hr />
-    <p class="text-center primary--text">更多明星</p>
+    <v-col class="d-flex justify-center flex-column align-center">
+      <v-btn class="primary--text" text @click="handlerMore">
+        更多明星
+        <v-icon>mdi-chevron-down</v-icon>
+      </v-btn>
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        v-if="more"
+      ></v-progress-circular>
+    </v-col>
   </div>
 </template>
 <script>
@@ -109,6 +126,7 @@ export default {
   },
   data() {
     return {
+      more: false,
       ischange: false,
       dogImgs: [
         { url: require("@/assets/img/dog/dog-1.jpg"), control: false },
@@ -184,10 +202,16 @@ export default {
         require("@/assets/img/cat/cat-4.jpg"),
         require("@/assets/img/cat/cat-2.jpg")
       ],
-      genderType: "公"
+      genderType: "公",
+      timeout: null
     };
   },
   methods: {
+    handlerDetail(event) {
+      event.target
+        .closest(".row")
+        .querySelector(".detail-image").style.display = "none";
+    },
     details(imgUrl, control, event) {
       this.hideDetail();
       event.target
@@ -215,11 +239,22 @@ export default {
       }
     },
     toIntroduction(url) {
-      this.$router.push({ path: "introduction", query: { url: url } });
+      this.$router.push({ name: "Introduction", params: { url: url } });
+    },
+    handlerMore() {
+      this.more = true;
+      this.timeout = window.setTimeout(() => {
+        this.more = false;
+        this.tmpImgs = this.dogImgs.concat(this.dogImgs);
+        this.rowCount = Math.round(this.tmpImgs.length / 4);
+      }, 3000);
     }
   },
   mounted() {
     this.change();
+  },
+  destroyed() {
+    clearTimeout(this.timeout);
   }
 };
 </script>
@@ -237,5 +272,8 @@ export default {
 }
 .display-relative {
   position: relative;
+}
+.a {
+  opacity: 0.5;
 }
 </style>
