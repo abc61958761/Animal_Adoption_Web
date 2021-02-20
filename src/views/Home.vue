@@ -58,7 +58,7 @@
           :cols="ischange ? '12' : '3'"
           v-for="index in 4"
           :key="index"
-          class="display-relative"
+          class="display-relative cursor"
         >
           <v-img
             :lazy-src="tmpImgs[index + count].url"
@@ -73,7 +73,6 @@
             "
             @load="isControl = true"
             @click="toIntroduction(tmpImgs[count + index].more)"
-            @mouseout="handlerDetail($event)"
             :class="
               isControl
                 ? 'animate__animated animate__wobble animate__delay-2s'
@@ -96,7 +95,12 @@
           </v-img>
           <DetailInfo :show="ischange"></DetailInfo>
         </v-col>
-        <v-col cols="12" v-show="!ischange" class="detail-image">
+        <v-col
+          cols="12"
+          v-show="!ischange"
+          class="detail-image"
+          @mouseout="handlerDetail($event)"
+        >
           <v-img :src="detailImgUrl"></v-img>
           <DetailInfo :show="!ischange"></DetailInfo>
         </v-col>
@@ -104,11 +108,12 @@
     </v-row>
     <hr />
     <v-col class="d-flex justify-center flex-column align-center">
-      <v-btn class="primary--text" text @click="handlerMore">
+      <v-btn class="primary--text" text @click="handlerMore" v-if="!more">
         更多明星
         <v-icon>mdi-chevron-down</v-icon>
       </v-btn>
       <v-progress-circular
+        :size="50"
         indeterminate
         color="primary"
         v-if="more"
@@ -129,8 +134,24 @@ export default {
       more: false,
       ischange: false,
       dogImgs: [
-        { url: require("@/assets/img/dog/dog-1.jpg"), control: false },
-        { url: require("@/assets/img/dog/dog-2.jpg"), control: false },
+        {
+          url: require("@/assets/img/dog/h1.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/dog/h1.jpg"),
+            require("@/assets/img/dog/h1.jpg"),
+            require("@/assets/img/dog/h1.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/dog/g1.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/dog/g1.jpg"),
+            require("@/assets/img/dog/g1.jpg"),
+            require("@/assets/img/dog/g1.jpg")
+          ]
+        },
         {
           url: require("@/assets/img/dog/a1.jpg"),
           control: false,
@@ -196,8 +217,8 @@ export default {
       gender: ["公", "母"],
       model: "",
       carouselImgs: [
-        require("@/assets/img/dog/dog-1.jpg"),
-        require("@/assets/img/dog/dog-2.jpg"),
+        require("@/assets/img/dog/h1.jpg"),
+        require("@/assets/img/dog/a3.jpg"),
         require("@/assets/img/dog/dog-3.jpg"),
         require("@/assets/img/cat/cat-4.jpg"),
         require("@/assets/img/cat/cat-2.jpg")
@@ -273,7 +294,7 @@ export default {
 .display-relative {
   position: relative;
 }
-.a {
-  opacity: 0.5;
+.cursor {
+  cursor: pointer;
 }
 </style>
