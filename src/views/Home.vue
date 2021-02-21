@@ -199,13 +199,69 @@ export default {
         }
       ],
       catImgs: [
-        { url: require("@/assets/img/cat/cat-1.png"), control: false },
-        { url: require("@/assets/img/cat/cat-2.jpg"), control: false },
-        { url: require("@/assets/img/cat/cat-3.jpg"), control: false },
-        { url: require("@/assets/img/cat/cat-4.jpg"), control: false },
-        { url: require("@/assets/img/cat/cat-5.jpg"), control: false },
-        { url: require("@/assets/img/cat/cat-4.jpg"), control: false },
-        { url: require("@/assets/img/cat/cat-5.jpg"), control: false }
+        {
+          url: require("@/assets/img/cat/cat-1.png"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-1.png"),
+            require("@/assets/img/cat/cat-1.png"),
+            require("@/assets/img/cat/cat-1.png")
+          ]
+        },
+        {
+          url: require("@/assets/img/cat/cat-2.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-2.jpg"),
+            require("@/assets/img/cat/cat-2.jpg"),
+            require("@/assets/img/cat/cat-2.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/cat/cat-3.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-3.jpg"),
+            require("@/assets/img/cat/cat-3.jpg"),
+            require("@/assets/img/cat/cat-3.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/cat/cat-4.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-4.jpg"),
+            require("@/assets/img/cat/cat-4.jpg"),
+            require("@/assets/img/cat/cat-4.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/cat/cat-5.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-5.jpg"),
+            require("@/assets/img/cat/cat-5.jpg"),
+            require("@/assets/img/cat/cat-5.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/cat/cat-4.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-4.jpg"),
+            require("@/assets/img/cat/cat-4.jpg"),
+            require("@/assets/img/cat/cat-4.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/cat/cat-5.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-5.jpg"),
+            require("@/assets/img/cat/cat-5.jpg"),
+            require("@/assets/img/cat/cat-5.jpg")
+          ]
+        }
       ],
       tmpImgs: [],
       isControl: false,
@@ -261,12 +317,13 @@ export default {
     },
     toIntroduction(url) {
       this.$router.push({ name: "Introduction", params: { url: url } });
+      sessionStorage.setItem("otherImgs", [url]);
     },
     handlerMore() {
       this.more = true;
       this.timeout = window.setTimeout(() => {
         this.more = false;
-        this.tmpImgs = this.dogImgs.concat(this.dogImgs);
+        this.tmpImgs = this.tmpImgs.concat(this.dogImgs);
         this.rowCount = Math.round(this.tmpImgs.length / 4);
       }, 3000);
     }
