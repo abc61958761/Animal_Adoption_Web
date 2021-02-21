@@ -147,6 +147,7 @@ export default {
     handlerClick(img) {
       this.imgs = img;
       this.change = true;
+      window.scrollTo(0, 0);
     }
   },
   mounted() {

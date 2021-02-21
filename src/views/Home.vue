@@ -95,13 +95,8 @@
           </v-img>
           <DetailInfo :show="ischange"></DetailInfo>
         </v-col>
-        <v-col
-          cols="12"
-          v-show="!ischange"
-          class="detail-image"
-          @mouseout="handlerDetail($event)"
-        >
-          <v-img :src="detailImgUrl"></v-img>
+        <v-col cols="12" v-show="!ischange" class="detail-image">
+          <v-img :src="detailImgUrl" @mouseout="handlerDetail($event)"></v-img>
           <DetailInfo :show="!ischange"></DetailInfo>
         </v-col>
       </v-col>
