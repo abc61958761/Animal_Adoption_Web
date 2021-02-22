@@ -93,11 +93,11 @@
               </v-row>
             </template>
           </v-img>
-          <DetailInfo :show="ischange"></DetailInfo>
+          <detail-info :show="ischange"></detail-info>
         </v-col>
         <v-col cols="12" v-show="!ischange" class="detail-image">
           <v-img :src="detailImgUrl" @mouseout="handlerDetail($event)"></v-img>
-          <DetailInfo :show="!ischange"></DetailInfo>
+          <detail-info :show="!ischange"></detail-info>
         </v-col>
       </v-col>
     </v-row>
@@ -122,7 +122,7 @@ import DetailInfo from "@/components/DetailInfo.vue";
 export default {
   components: {
     Header,
-    DetailInfo
+    "detail-info": DetailInfo
   },
   data() {
     return {
@@ -342,11 +342,5 @@ export default {
   position: absolute;
   bottom: 30%;
   left: 0px;
-}
-.display-relative {
-  position: relative;
-}
-.cursor {
-  cursor: pointer;
 }
 </style>

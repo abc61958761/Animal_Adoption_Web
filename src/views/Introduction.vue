@@ -173,12 +173,6 @@ export default {
 .v-list {
   background: none;
 }
-.display-relative {
-  position: relative;
-}
-.cursor {
-  cursor: pointer;
-}
 .loading {
   background: gray;
   position: absolute;
