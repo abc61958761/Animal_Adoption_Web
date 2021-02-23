@@ -64,10 +64,11 @@
             :lazy-src="tmpImgs[index + count].url"
             :src="tmpImgs[index + count].url"
             :height="ischange ? '800px' : '300px'"
-            @mouseover="
+            @mouseenter="
               details(
                 tmpImgs[count + index].url,
                 (tmpImgs[count + index].control = true),
+                tmpImgs[count + index].more,
                 $event
               )
             "
@@ -93,17 +94,33 @@
               </v-row>
             </template>
           </v-img>
-          <detail-info :show="ischange"></detail-info>
+          <detail-info
+            :show="ischange"
+            @handlerClick="handlerClick(url)"
+          ></detail-info>
         </v-col>
-        <v-col cols="12" v-show="!ischange" class="detail-image">
-          <v-img :src="detailImgUrl" @mouseout="handlerDetail($event)"></v-img>
-          <detail-info :show="!ischange"></detail-info>
+        <v-col
+          cols="12"
+          v-show="!ischange"
+          class="detail-image"
+          @mouseleave="handlerDetail($event)"
+        >
+          <v-img :src="detailImgUrl"></v-img>
+          <detail-info
+            :show="!ischange"
+            @handlerClick="handlerClick(url)"
+          ></detail-info>
         </v-col>
       </v-col>
     </v-row>
     <hr />
     <v-col class="d-flex justify-center flex-column align-center">
-      <v-btn class="primary--text" text @click="handlerMore" v-if="!more">
+      <v-btn
+        class="primary--text text-h6"
+        text
+        @click="handlerMore"
+        v-if="!more"
+      >
         更多明星
         <v-icon>mdi-chevron-down</v-icon>
       </v-btn>
@@ -271,20 +288,24 @@ export default {
         require("@/assets/img/dog/h1.jpg"),
         require("@/assets/img/dog/a3.jpg"),
         require("@/assets/img/dog/dog-3.jpg"),
-        require("@/assets/img/cat/cat-4.jpg"),
+        require("@/assets/img/cat/cat.jpg"),
         require("@/assets/img/cat/cat-2.jpg")
       ],
       genderType: "公",
-      timeout: null
+      timeout: null,
+      url: []
     };
   },
   methods: {
-    handlerDetail(event) {
-      event.target
-        .closest(".row")
-        .querySelector(".detail-image").style.display = "none";
+    handlerClick(imgUrl) {
+      this.$router.push({ name: "Introduction", params: { url: imgUrl } });
+      sessionStorage.setItem("otherImgs", [imgUrl]);
     },
-    details(imgUrl, control, event) {
+    handlerDetail(event) {
+      event.target.style.display = "none";
+    },
+    details(imgUrl, control, url, event) {
+      this.url = url;
       this.hideDetail();
       event.target
         .closest(".row")
@@ -294,6 +315,7 @@ export default {
     },
     change() {
       this.isTypes = this.type;
+      this.hideDetail();
       switch (this.isTypes) {
         case "dog":
           this.tmpImgs = this.dogImgs;
@@ -311,8 +333,9 @@ export default {
       }
     },
     toIntroduction(url) {
-      this.$router.push({ name: "Introduction", params: { url: url } });
-      sessionStorage.setItem("otherImgs", [url]);
+      if (!this.ischange) {
+        this.handlerClick(url);
+      }
     },
     handlerMore() {
       this.more = true;
