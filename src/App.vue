@@ -7,3 +7,11 @@
 <script>
 export default {};
 </script>
+<style lang="scss">
+.cursor {
+  cursor: pointer;
+}
+.display-relative {
+  position: relative;
+}
+</style>

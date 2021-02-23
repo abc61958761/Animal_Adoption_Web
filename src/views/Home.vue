@@ -93,16 +93,11 @@
               </v-row>
             </template>
           </v-img>
-          <DetailInfo :show="ischange"></DetailInfo>
+          <detail-info :show="ischange"></detail-info>
         </v-col>
-        <v-col
-          cols="12"
-          v-show="!ischange"
-          class="detail-image"
-          @mouseout="handlerDetail($event)"
-        >
-          <v-img :src="detailImgUrl"></v-img>
-          <DetailInfo :show="!ischange"></DetailInfo>
+        <v-col cols="12" v-show="!ischange" class="detail-image">
+          <v-img :src="detailImgUrl" @mouseout="handlerDetail($event)"></v-img>
+          <detail-info :show="!ischange"></detail-info>
         </v-col>
       </v-col>
     </v-row>
@@ -127,7 +122,7 @@ import DetailInfo from "@/components/DetailInfo.vue";
 export default {
   components: {
     Header,
-    DetailInfo
+    "detail-info": DetailInfo
   },
   data() {
     return {
@@ -199,13 +194,69 @@ export default {
         }
       ],
       catImgs: [
-        { url: require("@/assets/img/cat/cat-1.png"), control: false },
-        { url: require("@/assets/img/cat/cat-2.jpg"), control: false },
-        { url: require("@/assets/img/cat/cat-3.jpg"), control: false },
-        { url: require("@/assets/img/cat/cat-4.jpg"), control: false },
-        { url: require("@/assets/img/cat/cat-5.jpg"), control: false },
-        { url: require("@/assets/img/cat/cat-4.jpg"), control: false },
-        { url: require("@/assets/img/cat/cat-5.jpg"), control: false }
+        {
+          url: require("@/assets/img/cat/cat-1.png"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-1.png"),
+            require("@/assets/img/cat/cat-1.png"),
+            require("@/assets/img/cat/cat-1.png")
+          ]
+        },
+        {
+          url: require("@/assets/img/cat/cat-2.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-2.jpg"),
+            require("@/assets/img/cat/cat-2.jpg"),
+            require("@/assets/img/cat/cat-2.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/cat/cat-3.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-3.jpg"),
+            require("@/assets/img/cat/cat-3.jpg"),
+            require("@/assets/img/cat/cat-3.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/cat/cat-4.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-4.jpg"),
+            require("@/assets/img/cat/cat-4.jpg"),
+            require("@/assets/img/cat/cat-4.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/cat/cat-5.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-5.jpg"),
+            require("@/assets/img/cat/cat-5.jpg"),
+            require("@/assets/img/cat/cat-5.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/cat/cat-4.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-4.jpg"),
+            require("@/assets/img/cat/cat-4.jpg"),
+            require("@/assets/img/cat/cat-4.jpg")
+          ]
+        },
+        {
+          url: require("@/assets/img/cat/cat-5.jpg"),
+          control: false,
+          more: [
+            require("@/assets/img/cat/cat-5.jpg"),
+            require("@/assets/img/cat/cat-5.jpg"),
+            require("@/assets/img/cat/cat-5.jpg")
+          ]
+        }
       ],
       tmpImgs: [],
       isControl: false,
@@ -261,12 +312,13 @@ export default {
     },
     toIntroduction(url) {
       this.$router.push({ name: "Introduction", params: { url: url } });
+      sessionStorage.setItem("otherImgs", [url]);
     },
     handlerMore() {
       this.more = true;
       this.timeout = window.setTimeout(() => {
         this.more = false;
-        this.tmpImgs = this.dogImgs.concat(this.dogImgs);
+        this.tmpImgs = this.tmpImgs.concat(this.dogImgs);
         this.rowCount = Math.round(this.tmpImgs.length / 4);
       }, 3000);
     }
@@ -290,11 +342,5 @@ export default {
   position: absolute;
   bottom: 30%;
   left: 0px;
-}
-.display-relative {
-  position: relative;
-}
-.cursor {
-  cursor: pointer;
 }
 </style>

@@ -1,12 +1,6 @@
 <template>
   <div>
-    <v-toolbar color="#344550">
-      <v-icon
-        v-if="this.$route.path == '/introduction'"
-        @click="back"
-        class="white--text"
-        >mdi-arrow-left</v-icon
-      >
+    <v-toolbar color="#344550" @click="back" class="cursor">
       <v-toolbar-title class="font-weight-bold white--text mx-auto"
         >動物明星經紀公司</v-toolbar-title
       >

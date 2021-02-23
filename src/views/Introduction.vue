@@ -4,7 +4,7 @@
       <Header></Header>
       <v-card class="display-relative">
         <v-img
-          :src="change ? this.imgs : this.$route.params.url[0]"
+          :src="change ? this.imgs : otherImgs[0]"
           :class="
             handler
               ? 'animate__animated animate__fadeOutDown animate__slower'
@@ -23,7 +23,7 @@
         }"
       >
         <v-img
-          :src="change ? this.imgs : this.$route.params.url[1]"
+          :src="change ? this.imgs : otherImgs[1]"
           :class="
             handler
               ? 'animate__animated animate__slideInUp  animate__faster'
@@ -48,7 +48,7 @@
       </v-card>
       <v-card>
         <v-img
-          :src="change ? this.imgs : this.$route.params.url[2]"
+          :src="change ? this.imgs : otherImgs[2]"
           :class="
             !isIntersecting
               ? 'animate__animated animate__slideInUp animate__faster'
@@ -132,7 +132,8 @@ export default {
         { url: require("@/assets/img/dog/g1.jpg") },
         { url: require("@/assets/img/dog/dog-3.jpg") }
       ],
-      imgs: ""
+      imgs: "",
+      otherImgs: []
     };
   },
   components: {
@@ -146,12 +147,20 @@ export default {
     handlerClick(img) {
       this.imgs = img;
       this.change = true;
+      window.scrollTo(0, 0);
     }
   },
   mounted() {
     this.timeout = window.setTimeout(() => {
       this.isLoading = false;
     }, 3500);
+  },
+  created() {
+    this.otherImgs = sessionStorage.getItem("otherImgs").split(",");
+  },
+  destroyed() {
+    sessionStorage.clear();
+    clearTimeout(this.timeout);
   }
 };
 </script>
@@ -163,12 +172,6 @@ export default {
 }
 .v-list {
   background: none;
-}
-.display-relative {
-  position: relative;
-}
-.cursor {
-  cursor: pointer;
 }
 .loading {
   background: gray;
