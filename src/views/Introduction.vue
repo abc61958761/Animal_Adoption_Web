@@ -84,10 +84,10 @@
             >
               <template v-slot:placeholder>
                 <v-row
-                  class="fill-height ma-0"
+                  class="ma-0"
                   align="center"
                   justify="center"
-                  style="background:grey;opacity: 0.5;"
+                  style="background:grey;opacity: 0.5;height:100%"
                 >
                   <v-progress-circular
                     indeterminate
